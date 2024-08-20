@@ -1,11 +1,11 @@
-let rock = document.getElementById("rock");
-let paper = document.getElementById("paper");
-let scissor = document.getElementById("scissor");
-let compPoints = document.getElementById("compScore");
-let playerPoints = document.getElementById("playerScore");
-let comp = document.getElementById("compChoice");
-let choiceText = document.getElementById("choiceText");
-let originTextContent = "Choose an option";
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissor = document.getElementById("scissor");
+const compPoints = document.getElementById("compScore");
+const playerPoints = document.getElementById("playerScore");
+const comp = document.getElementById("compChoice");
+const choiceText = document.getElementById("choiceText");
+const originTextContent = "Choose an option";
 
 rock.addEventListener('click', function() {
     doRound("rock");
@@ -20,12 +20,12 @@ scissor.addEventListener('click', function() {
 });
 
 function doRound(choice) {
-    let outcomes = {
+    const outcomes = {
         "rock": "scissor",
         "paper": "rock",
         "scissor": "paper"
     }
-    let choices = ["rock", "paper", "scissor"];
+    const choices = ["rock", "paper", "scissor"];
     let compInput = Math.floor(Math.random() * 3);
 
     compInput = choices[compInput];
@@ -43,27 +43,19 @@ function doRound(choice) {
     }
 
     if(outcomes[choice] == compInput) {
-        playerPoint();
+        givePoint(playerPoints, "Player");
     } else if(choice == compInput) {
         draw()
     } else {
-        compPoint();
+        givePoint(compPoints, "Computer");
     }
 }
 
-function playerPoint() {
-    let score = parseInt(playerPoints.textContent);
+function givePoint(winner, name) {
+    let score = parseInt(winner.textContent);
+    choiceText.textContent = `${name} WINS`;
     score++;
-    playerPoints.textContent = score;
-    choiceText.textContent = "Player WINS";
-    setTimeout(reset, 3000);
-}
-
-function compPoint() {
-    let score = parseInt(compPoints.textContent);
-    score++;
-    compPoints.textContent = score;
-    choiceText.textContent = "Computer WINS";
+    winner.textContent = score;
     setTimeout(reset, 3000);
 }
 
